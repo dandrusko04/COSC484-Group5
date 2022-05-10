@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { updateUser } from '../../actions/users'
+
 //components
 import IngreList from "./IngreList.js";
 import RequestIngre from './RequestIngre.js';
@@ -20,7 +21,8 @@ const Inventory = () => {
     const user = useSelector((state) => state.users[0]);
     const [userData, setUserData] = useState({...user });
     const dispatch = useDispatch();
-    const mylist = userData.inventory.map((ingre, id) => { return { id: id, task: ingre, complete: false } })
+    const mylist = [];
+
 
 
     const [ingreList, setIngreList] = useState(mylist);
@@ -34,10 +36,6 @@ const Inventory = () => {
     }
 
     const handleFilter = () => {
-
-            //so these are working just not every time. when you come back into the page after exting out it works
-            //ut if u refresh it disappears and go to another page it reverets back but sometimes it doesnt
-            //not entirley sure how to fiz this or why it is doing this.
             let filtered = ingreList.filter(task => { return !task.complete; }); //this works
             //console.log(filtered);
             setIngreList([...filtered]); //this doesn't...
@@ -55,11 +53,7 @@ const Inventory = () => {
         setUserData({...userData, inventory: ingreList.map(task => { return task.task }) })
         dispatch(updateUser(userData));
     }
-    return ( < div className = "column" >
-
-
-
-        <
+    return ( <
         div className = "App" >
         <
         header class = "page-header" >
@@ -81,8 +75,6 @@ const Inventory = () => {
         Generate RecipeSearch = { RecipeSearch }
         />  < /
         div >
-        <
-        /div>
     );
 }
 export default Inventory;
